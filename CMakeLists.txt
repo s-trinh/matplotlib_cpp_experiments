@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(matplotlib_cpp_experiments)
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(OpenCV REQUIRED)
 find_package(VISP REQUIRED)
 find_package(Matplot++ REQUIRED)
 find_package(matplotlib_cpp REQUIRED)
@@ -13,6 +14,7 @@ set(code_cpp
   src/lines3d.cpp   # matplotlib-cpp
   src/ibvs-4pts-plotter-continuous-gain-adaptive-plot2d.cpp
   src/ibvs-4pts-plotter-continuous-gain-adaptive-plot3d.cpp
+  src/get_matplotlib_buffer_img.cpp
 )
 
 foreach(cpp ${code_cpp})
@@ -26,5 +28,5 @@ foreach(cpp ${code_cpp})
     $<$<CXX_COMPILER_ID:MSVC>:/W4>
   )
 
-  target_link_libraries(${target} PRIVATE ${VISP_LIBRARIES} Matplot++::matplot matplotlib_cpp::matplotlib_cpp)
+  target_link_libraries(${target} PRIVATE ${OpenCV_LIBS} ${VISP_LIBRARIES} Matplot++::matplot matplotlib_cpp::matplotlib_cpp)
 endforeach()
